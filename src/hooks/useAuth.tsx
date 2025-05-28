@@ -1,5 +1,5 @@
 
-import { useState, useContext, createContext, ReactNode } from 'react';
+import React, { useState, useContext, createContext, ReactNode, useEffect } from 'react';
 import { User, AuthState, LoginCredentials } from '@/types/auth';
 
 interface AuthContextType extends AuthState {
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Check for saved user on mount
-  useState(() => {
+  useEffect(() => {
     const savedUser = localStorage.getItem('octa_user');
     if (savedUser) {
       try {
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem('octa_user');
       }
     }
-  });
+  }, []);
 
   return (
     <AuthContext.Provider value={{
