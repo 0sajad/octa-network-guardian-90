@@ -43,10 +43,6 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    
-    /* Performance optimization variables */
-    --animation-duration: 0.3s;
-    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -60,39 +56,9 @@
     background: linear-gradient(135deg, #0f172a 0%, #1e293b  25%, #334155 50%, #1e293b 75%, #0f172a 100%);
     background-attachment: fixed;
     min-height: 100vh;
-    /* Performance optimizations */
-    will-change: auto;
-    backface-visibility: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
   }
 
-  /* Performance-optimized images */
-  img {
-    content-visibility: auto;
-    contain: layout style;
-    will-change: auto;
-    transition: opacity var(--animation-duration) var(--animation-timing);
-  }
-
-  img[data-src] {
-    opacity: 0.1;
-    filter: blur(5px);
-    transition: opacity var(--animation-duration) var(--animation-timing), filter var(--animation-duration) var(--animation-timing);
-  }
-
-  img.loaded {
-    opacity: 1;
-    filter: blur(0);
-  }
-
-  img.error {
-    opacity: 0.5;
-    filter: grayscale(100%);
-  }
-
-  /* RTL Support with performance optimization */
+  /* RTL Support */
   [dir="rtl"] .space-x-3 > * + * {
     margin-left: 0;
     margin-right: 0.75rem;
@@ -108,22 +74,20 @@
     margin-right: 1.5rem;
   }
 
-  /* Optimized Glass Morphism Effect */
+  /* Glass Morphism Effect */
   .glass {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    will-change: transform;
   }
 
   .glass-dark {
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    will-change: transform;
   }
 
-  /* Performance-optimized scrollbar */
+  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -136,18 +100,15 @@
   ::-webkit-scrollbar-thumb {
     background: rgba(59, 130, 246, 0.5);
     border-radius: 4px;
-    transition: background var(--animation-duration) var(--animation-timing);
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(59, 130, 246, 0.7);
   }
 
-  /* Optimized hover effects */
+  /* Hover Effects */
   .hover-lift {
-    transition: transform var(--animation-duration) var(--animation-timing), 
-                box-shadow var(--animation-duration) var(--animation-timing);
-    will-change: transform;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .hover-lift:hover {
@@ -155,21 +116,20 @@
     box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
   }
 
-  /* Performance-aware animations */
+  /* Pulse Animation for Active Elements */
   .pulse-active {
-    animation: pulse 2s var(--animation-timing) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* Optimized text gradient */
+  /* Text Gradient */
   .text-gradient {
     background: linear-gradient(135deg, #3b82f6, #7c3aed, #3b82f6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    will-change: auto;
   }
 
-  /* Performance-optimized shimmer */
+  /* Shimmer Loading Effect */
   .shimmer {
     background: linear-gradient(90deg, 
       rgba(255,255,255,0.1) 0%, 
@@ -177,52 +137,10 @@
       rgba(255,255,255,0.1) 100%);
     background-size: 200px 100%;
     animation: shimmer 1.5s infinite;
-    will-change: background-position;
-  }
-
-  /* Low-quality mode for poor connections */
-  .low-quality * {
-    animation-duration: 0.1s !important;
-    transition-duration: 0.1s !important;
-  }
-
-  .low-quality .glass,
-  .low-quality .glass-dark {
-    backdrop-filter: none;
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .medium-quality * {
-    animation-duration: 0.2s !important;
-    transition-duration: 0.2s !important;
-  }
-
-  /* Critical resource loading optimization */
-  .critical-resource {
-    content-visibility: visible;
-    contain: none;
-  }
-
-  /* Non-critical content optimization */
-  .non-critical {
-    content-visibility: auto;
-    contain: layout style paint;
-  }
-
-  /* Reduce motion for accessibility and performance */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
   }
 }
 
-/* Performance-optimized animations */
+/* Custom animations for page transitions */
 @keyframes slideInFromRight {
   0% {
     transform: translateX(100%);
@@ -245,53 +163,10 @@
   }
 }
 
-@keyframes shimmer {
-  0% { 
-    background-position: -200px 0; 
-  }
-  100% { 
-    background-position: calc(200px + 100%) 0; 
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { 
-    transform: scale(1); 
-    opacity: 1; 
-  }
-  50% { 
-    transform: scale(1.05); 
-    opacity: 0.8; 
-  }
-}
-
 .slide-in-right {
-  animation: slideInFromRight var(--animation-duration) ease-out;
+  animation: slideInFromRight 0.3s ease-out;
 }
 
 .slide-in-left {
-  animation: slideInFromLeft var(--animation-duration) ease-out;
-}
-
-/* Print styles for better performance */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  * {
-    background: white !important;
-    color: black !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .glass,
-  .glass-dark {
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid white;
-  }
+  animation: slideInFromLeft 0.3s ease-out;
 }

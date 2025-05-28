@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import StatsCards from './StatsCards';
 import NetworkChart from './NetworkChart';
-import CPUChart from './CPUChart';
-import MemoryChart from './MemoryChart';
-import TrafficChart from './TrafficChart';
 import AlertsPanel from './AlertsPanel';
 import { SystemStats, ChartData, Alert } from '@/types/dashboard';
 
@@ -164,12 +161,24 @@ const Dashboard = () => {
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <TrafficChart data={networkData} />
-        <CPUChart data={cpuData} />
+        <NetworkChart 
+          data={networkData}
+          title="حركة مرور الشبكة (Mbps)"
+          color="#3b82f6"
+        />
+        <NetworkChart 
+          data={cpuData}
+          title="استخدام المعالج (%)"
+          color="#10b981"
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <MemoryChart data={memoryData} />
+        <NetworkChart 
+          data={memoryData}
+          title="استخدام الذاكرة (%)"
+          color="#8b5cf6"
+        />
         <AlertsPanel alerts={alerts} />
       </div>
     </div>
