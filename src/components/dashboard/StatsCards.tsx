@@ -14,42 +14,48 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
       value: `${stats.cpu}%`,
       icon: Activity,
       color: 'from-blue-500 to-cyan-500',
-      status: stats.cpu > 80 ? 'critical' : stats.cpu > 60 ? 'warning' : 'normal'
+      status: stats.cpu > 80 ? 'critical' : stats.cpu > 60 ? 'warning' : 'normal',
+      subtitle: 'تحديث مباشر'
     },
     {
       title: 'استخدام الذاكرة',
       value: `${stats.memory}%`,
       icon: Server,
       color: 'from-purple-500 to-pink-500',
-      status: stats.memory > 85 ? 'critical' : stats.memory > 70 ? 'warning' : 'normal'
+      status: stats.memory > 85 ? 'critical' : stats.memory > 70 ? 'warning' : 'normal',
+      subtitle: 'تحديث مباشر'
     },
     {
       title: 'مساحة القرص',
       value: `${stats.disk}%`,
       icon: Shield,
       color: 'from-green-500 to-emerald-500',
-      status: stats.disk > 90 ? 'critical' : stats.disk > 75 ? 'warning' : 'normal'
+      status: stats.disk > 90 ? 'critical' : stats.disk > 75 ? 'warning' : 'normal',
+      subtitle: 'تحديث مباشر'
     },
     {
       title: 'سرعة الشبكة',
       value: `${stats.network} Mbps`,
       icon: Network,
       color: 'from-orange-500 to-red-500',
-      status: stats.network < 50 ? 'warning' : 'normal'
+      status: stats.network < 50 ? 'warning' : 'normal',
+      subtitle: 'طبيعي'
     },
     {
       title: 'الاتصالات النشطة',
       value: stats.connections.toString(),
       icon: Users,
       color: 'from-indigo-500 to-purple-500',
-      status: 'normal'
+      status: 'normal',
+      subtitle: 'طبيعي'
     },
     {
       title: 'مدة التشغيل',
       value: stats.uptime,
       icon: Zap,
       color: 'from-yellow-500 to-orange-500',
-      status: 'normal'
+      status: 'normal',
+      subtitle: 'طبيعي'
     }
   ];
 
@@ -61,6 +67,22 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
     }
   };
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'critical': return 'حرج';
+      case 'warning': return 'تحذير';
+      default: return 'طبيعي';
+    }
+  };
+
+  const getStatusTextColor = (status: string) => {
+    switch (status) {
+      case 'critical': return 'bg-red-500/20 text-red-300';
+      case 'warning': return 'bg-yellow-500/20 text-yellow-300';
+      default: return 'bg-green-500/20 text-green-300';
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {cards.map((card, index) => {
@@ -68,11 +90,11 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
         return (
           <div
             key={card.title}
-            className={`glass-dark rounded-xl p-6 border ${getStatusColor(card.status)} hover-lift transition-all duration-300`}
+            className={`glass-dark rounded-xl p-6 border ${getStatusColor(card.status)} hover-lift transition-all duration-300 animate-fadeIn`}
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${card.color} flex items-center justify-center`}>
+              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${card.color} flex items-center justify-center shadow-lg`}>
                 <Icon className="w-6 h-6 text-white" />
               </div>
               <div className={`w-3 h-3 rounded-full ${
@@ -83,19 +105,13 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
             </div>
             
             <h3 className="text-gray-300 text-sm font-medium mb-2">{card.title}</h3>
-            <p className="text-2xl font-bold text-white mb-1">{card.value}</p>
+            <p className="text-2xl font-bold text-white mb-3 font-mono">{card.value}</p>
             
             <div className="flex items-center justify-between text-xs">
-              <span className={`px-2 py-1 rounded-full ${
-                card.status === 'critical' ? 'bg-red-500/20 text-red-300' :
-                card.status === 'warning' ? 'bg-yellow-500/20 text-yellow-300' :
-                'bg-green-500/20 text-green-300'
-              }`}>
-                {card.status === 'critical' ? 'حرج' :
-                 card.status === 'warning' ? 'تحذير' :
-                 'طبيعي'}
+              <span className={`px-2 py-1 rounded-full ${getStatusTextColor(card.status)}`}>
+                {getStatusText(card.status)}
               </span>
-              <span className="text-gray-400">تحديث مباشر</span>
+              <span className="text-gray-400">{card.subtitle}</span>
             </div>
           </div>
         );

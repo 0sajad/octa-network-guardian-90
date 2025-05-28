@@ -7,30 +7,37 @@ import { SystemStats, ChartData, Alert } from '@/types/dashboard';
 
 const Dashboard = () => {
   const [stats, setStats] = useState<SystemStats>({
-    cpu: 45,
-    memory: 68,
-    disk: 82,
-    network: 156,
-    uptime: '15 يوم 7 ساعات',
-    connections: 847
+    cpu: 35,
+    memory: 52,
+    disk: 67,
+    network: 125,
+    uptime: '7 أيام 14 ساعة',
+    connections: 234
   });
 
   const [networkData, setNetworkData] = useState<ChartData[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
-  // Generate mock data
+  // Generate realistic mock data
   useEffect(() => {
-    // Generate initial chart data
+    // Generate initial chart data with realistic values
     const generateChartData = () => {
       const data: ChartData[] = [];
       const now = new Date();
+      const baseTraffic = 80; // Base network traffic
       
       for (let i = 23; i >= 0; i--) {
         const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+        // Create realistic network patterns (higher during day, lower at night)
+        const hour = time.getHours();
+        const isBusinessHours = hour >= 8 && hour <= 18;
+        const baseValue = isBusinessHours ? baseTraffic + 20 : baseTraffic - 10;
+        const randomVariation = (Math.random() - 0.5) * 20;
+        
         data.push({
           timestamp: time.toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' }),
-          value: Math.floor(Math.random() * 100) + 50,
-          label: `Network Traffic ${i}h ago`
+          value: Math.max(10, Math.min(150, baseValue + randomVariation)),
+          label: `حركة الشبكة ${i}س مضت`
         });
       }
       return data;
@@ -38,70 +45,87 @@ const Dashboard = () => {
 
     setNetworkData(generateChartData());
 
-    // Generate mock alerts
+    // Generate realistic alerts
     const mockAlerts: Alert[] = [
       {
         id: '1',
-        type: 'warning',
-        title: 'استخدام مرتفع للذاكرة',
-        message: 'تم تسجيل استخدام الذاكرة بنسبة 85% على الخادم الرئيسي',
-        timestamp: new Date(Date.now() - 5 * 60 * 1000),
+        type: 'info',
+        title: 'تحديث النظام مكتمل',
+        message: 'تم تثبيت التحديث الأمني v2.1.4 بنجاح على جميع الخوادم',
+        timestamp: new Date(Date.now() - 8 * 60 * 1000),
         isRead: false
       },
       {
         id: '2',
-        type: 'info',
-        title: 'تحديث النظام',
-        message: 'تم تثبيت التحديث الأمني الجديد بنجاح',
-        timestamp: new Date(Date.now() - 15 * 60 * 1000),
+        type: 'success',
+        title: 'فحص الشبكة مكتمل',
+        message: 'تم إكمال الفحص الشامل للشبكة - لا توجد مشاكل أمنية',
+        timestamp: new Date(Date.now() - 25 * 60 * 1000),
         isRead: false
       },
       {
         id: '3',
-        type: 'success',
-        title: 'اختبار الشبكة مكتمل',
-        message: 'تم إكمال فحص الشبكة الشامل بنجاح - لا توجد مشاكل',
-        timestamp: new Date(Date.now() - 30 * 60 * 1000),
+        type: 'warning',
+        title: 'اتصالات عالية',
+        message: 'تم تسجيل عدد اتصالات أعلى من المتوسط في الساعة الماضية',
+        timestamp: new Date(Date.now() - 45 * 60 * 1000),
         isRead: true
       }
     ];
 
     setAlerts(mockAlerts);
 
-    // Simulate real-time updates
+    // Simulate realistic real-time updates
     const interval = setInterval(() => {
-      setStats(prev => ({
-        ...prev,
-        cpu: Math.max(10, Math.min(95, prev.cpu + (Math.random() - 0.5) * 10)),
-        memory: Math.max(20, Math.min(95, prev.memory + (Math.random() - 0.5) * 5)),
-        network: Math.max(50, Math.min(200, prev.network + (Math.random() - 0.5) * 20)),
-        connections: Math.max(500, Math.min(1000, prev.connections + Math.floor((Math.random() - 0.5) * 50)))
-      }));
+      setStats(prev => {
+        // More realistic CPU fluctuations (30-70%)
+        const newCpu = Math.max(25, Math.min(75, prev.cpu + (Math.random() - 0.5) * 8));
+        // More realistic Memory usage (40-80%)
+        const newMemory = Math.max(35, Math.min(85, prev.memory + (Math.random() - 0.5) * 4));
+        // Network speed realistic range (50-200 Mbps)
+        const newNetwork = Math.max(45, Math.min(200, prev.network + (Math.random() - 0.5) * 15));
+        // Realistic connection count (150-400)
+        const newConnections = Math.max(150, Math.min(400, prev.connections + Math.floor((Math.random() - 0.5) * 20)));
 
-      // Update chart data
+        return {
+          ...prev,
+          cpu: Math.round(newCpu),
+          memory: Math.round(newMemory),
+          network: Math.round(newNetwork),
+          connections: newConnections
+        };
+      });
+
+      // Update chart data with realistic patterns
       setNetworkData(prevData => {
         const newData = [...prevData.slice(1)];
         const now = new Date();
+        const hour = now.getHours();
+        const isBusinessHours = hour >= 8 && hour <= 18;
+        const baseValue = isBusinessHours ? 100 : 60;
+        const randomVariation = (Math.random() - 0.5) * 25;
+        
         newData.push({
           timestamp: now.toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' }),
-          value: Math.floor(Math.random() * 100) + 50,
-          label: `Network Traffic Now`
+          value: Math.max(20, Math.min(150, baseValue + randomVariation)),
+          label: 'حركة الشبكة الآن'
         });
         return newData;
       });
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
+  // Generate CPU and Memory data based on network patterns
   const cpuData: ChartData[] = networkData.map(item => ({
     ...item,
-    value: Math.floor(Math.random() * 60) + 20
+    value: Math.max(20, Math.min(80, item.value * 0.4 + Math.random() * 15))
   }));
 
   const memoryData: ChartData[] = networkData.map(item => ({
     ...item,
-    value: Math.floor(Math.random() * 40) + 40
+    value: Math.max(30, Math.min(90, item.value * 0.5 + 20 + Math.random() * 10))
   }));
 
   return (
@@ -119,6 +143,16 @@ const Dashboard = () => {
               <span className="text-white text-sm">النظام يعمل بشكل طبيعي</span>
             </div>
           </div>
+          <div className="glass-dark rounded-lg px-3 py-2 border border-white/20">
+            <span className="text-gray-300 text-sm">
+              {new Date().toLocaleString('ar-SA', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                day: 'numeric',
+                month: 'short'
+              })}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -129,12 +163,12 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <NetworkChart 
           data={networkData}
-          title="حركة مرور الشبكة"
+          title="حركة مرور الشبكة (Mbps)"
           color="#3b82f6"
         />
         <NetworkChart 
           data={cpuData}
-          title="استخدام المعالج"
+          title="استخدام المعالج (%)"
           color="#10b981"
         />
       </div>
@@ -142,7 +176,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <NetworkChart 
           data={memoryData}
-          title="استخدام الذاكرة"
+          title="استخدام الذاكرة (%)"
           color="#8b5cf6"
         />
         <AlertsPanel alerts={alerts} />
