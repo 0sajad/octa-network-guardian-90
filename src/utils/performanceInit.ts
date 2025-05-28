@@ -3,7 +3,7 @@
 import { ImageOptimizer } from './imageOptimizer';
 import { BundleOptimizer } from './bundleOptimizer';
 import { CacheManager } from './cacheManager';
-import { performanceAnalyzer } from './performanceAnalyzer';
+import { PerformanceAnalyzer } from './performanceAnalyzer';
 import { CompressionManager } from './compressionManager';
 
 export class PerformanceInit {
@@ -30,12 +30,12 @@ export class PerformanceInit {
       CompressionManager.optimizeJSLoading();
 
       // 4. Start performance monitoring
-      performanceAnalyzer.startMonitoring();
+      PerformanceAnalyzer.initializeMonitoring();
 
       // 5. Log initial reports
       if (process.env.NODE_ENV === 'development') {
         setTimeout(() => {
-          const performanceReport = performanceAnalyzer.generateReport();
+          const performanceReport = PerformanceAnalyzer.generateReport();
           const cacheStats = CacheManager.getCacheStats();
           const compressionReport = CompressionManager.generateCompressionReport();
           const bundleStats = BundleOptimizer.analyzeBundle();
@@ -67,16 +67,15 @@ export class PerformanceInit {
 
     // Performance monitoring every minute
     setInterval(() => {
-      const metrics = performanceAnalyzer.getSystemMetrics();
+      const metrics = PerformanceAnalyzer.getMetrics();
       
       // Auto-adjust based on performance
-      if (metrics.memoryUsage && typeof metrics.memoryUsage === 'number' && metrics.memoryUsage > 80) {
+      if (metrics.memoryUsage > 80) {
         console.warn('High memory usage detected, optimizing...');
         BundleOptimizer.removeUnusedCSS();
       }
       
-      const webVitals = performanceAnalyzer.getWebVitals();
-      if (webVitals.lcp && webVitals.lcp > 4000) {
+      if (metrics.lcp > 4000) {
         console.warn('Poor LCP detected, optimizing images...');
         ImageOptimizer.setupLazyLoading();
       }

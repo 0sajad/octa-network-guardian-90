@@ -89,14 +89,6 @@ class PerformanceAnalyzer {
     };
   }
 
-  getMetrics(): Record<string, number | string | undefined> {
-    return {
-      ...this.getSystemMetrics(),
-      ...this.getWebVitals(),
-      ...this.getLoadingMetrics()
-    };
-  }
-
   generateReport(): any {
     const score = this.calculatePerformanceScore();
     
@@ -121,10 +113,6 @@ class PerformanceAnalyzer {
     if (metrics.fcp && metrics.fcp > 1800) score -= 10;
     
     return Math.max(0, score);
-  }
-
-  initializeMonitoring(): void {
-    this.startMonitoring();
   }
 
   startMonitoring(): void {
