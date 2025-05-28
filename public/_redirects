@@ -1,11 +1,85 @@
 
-# Netlify redirects for SPA routing
+# Netlify redirects for SPA routing and optimization
+
+# Handle SPA routing
 /*    /index.html   200
 
-# Security headers for Netlify
+# Force HTTPS (only on production)
+# http://octanetwork.com/*  https://octanetwork.com/:splat  301!
+
+# Security and performance headers
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;
+
+# Cache control for static assets
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.gif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.eot
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+# Service Worker should not be cached
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Service-Worker-Allowed: /
+
+# Manifest file
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# API redirects (if using serverless functions)
+/api/*  /.netlify/functions/:splat  200
+
+# Health check
+/health  /index.html  200
+
+# Sitemap and robots
+/robots.txt  /robots.txt  200
+/sitemap.xml  /sitemap.xml  200
+
+# Prerender for SEO (optional)
+/  /index.html  200  Prerender-Status-Code: 200

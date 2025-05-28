@@ -1,14 +1,26 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://octanetwork.com/sitemap.xml
+
+# Crawl delay for better server performance
+Crawl-delay: 1
+
+# Block sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.well-known/
+Disallow: /private/
+
+# Allow common assets
+Allow: /assets/
+Allow: /static/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
