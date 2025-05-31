@@ -15,6 +15,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SidebarProps {
   activeTab: string;
@@ -22,23 +23,25 @@ interface SidebarProps {
   isCollapsed: boolean;
 }
 
-const menuItems = [
-  { id: 'dashboard', label: 'لوحة التحكم', icon: LayoutDashboard },
-  { id: 'tools', label: 'أدوات الشبكة', icon: Network },
-  { id: 'security', label: 'الأمان', icon: Shield },
-  { id: 'monitoring', label: 'المراقبة', icon: Monitor },
-  { id: 'analysis', label: 'التحليل', icon: Activity },
-  { id: 'fiber', label: 'الألياف البصرية', icon: Zap },
-  { id: 'scanner', label: 'فاحص الشبكة', icon: Network },
-  { id: 'assistant', label: 'المساعد الذكي', icon: Bot },
-  { id: 'simulation', label: 'المحاكاة', icon: FileText },
-  { id: 'terminal', label: 'سطر الأوامر', icon: Terminal },
-  { id: 'users', label: 'إدارة المستخدمين', icon: Users },
-  { id: 'settings', label: 'الإعدادات', icon: Settings },
-  { id: 'help', label: 'المساعدة', icon: HelpCircle },
-];
-
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, isCollapsed }) => {
+  const { t } = useLanguage();
+
+  const menuItems = [
+    { id: 'dashboard', label: t('menu.dashboard'), icon: LayoutDashboard },
+    { id: 'tools', label: t('menu.tools'), icon: Network },
+    { id: 'security', label: t('menu.security'), icon: Shield },
+    { id: 'monitoring', label: t('menu.monitoring'), icon: Monitor },
+    { id: 'analysis', label: t('menu.analysis'), icon: Activity },
+    { id: 'fiber', label: t('menu.fiber'), icon: Zap },
+    { id: 'scanner', label: t('menu.scanner'), icon: Network },
+    { id: 'assistant', label: t('menu.assistant'), icon: Bot },
+    { id: 'simulation', label: t('menu.simulation'), icon: FileText },
+    { id: 'terminal', label: t('menu.terminal'), icon: Terminal },
+    { id: 'users', label: t('menu.users'), icon: Users },
+    { id: 'settings', label: t('menu.settings'), icon: Settings },
+    { id: 'help', label: t('menu.help'), icon: HelpCircle },
+  ];
+
   return (
     <aside className={cn(
       "glass-dark border-l border-white/20 transition-all duration-300 flex flex-col",
@@ -96,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, isCollapsed }
         <div className="p-4 border-t border-white/20">
           <div className="text-center text-xs text-gray-500">
             <p>تطوير: ساجد كاظم</p>
-            <p className="mt-1">الإصدار 1.0.0</p>
+            <p className="mt-1">الإصدار 2.0.0</p>
           </div>
         </div>
       )}

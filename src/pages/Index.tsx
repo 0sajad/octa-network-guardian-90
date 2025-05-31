@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthProvider } from '@/hooks/useAuth';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import LoginForm from '@/components/auth/LoginForm';
 import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
@@ -143,7 +144,9 @@ const MainApp = () => {
 const Index = () => {
   return (
     <AuthProvider>
-      <MainApp />
+      <LanguageProvider>
+        <MainApp />
+      </LanguageProvider>
     </AuthProvider>
   );
 };

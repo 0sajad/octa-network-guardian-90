@@ -2,6 +2,7 @@
 import React from 'react';
 import { Bell, Search, Settings, User, LogOut, Shield, Globe } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -14,6 +15,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'ar' ? 'en' : 'ar');
+  };
 
   return (
     <header className="glass-dark border-b border-white/20 h-16 px-6 flex items-center justify-between sticky top-0 z-50">
@@ -36,8 +42,9 @@ const Header = () => {
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
             type="text"
-            placeholder="البحث في النظام..."
+            placeholder={language === 'ar' ? "البحث في النظام..." : "Search system..."}
             className="w-full pl-4 pr-10 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            dir={language === 'ar' ? 'rtl' : 'ltr'}
           />
         </div>
       </div>
@@ -45,8 +52,14 @@ const Header = () => {
       {/* Right Actions */}
       <div className="flex items-center space-x-reverse space-x-4">
         {/* Language Switcher */}
-        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="text-gray-400 hover:text-white flex items-center space-x-reverse space-x-1"
+          onClick={toggleLanguage}
+        >
           <Globe className="w-4 h-4" />
+          <span className="text-xs">{language === 'ar' ? 'EN' : 'ع'}</span>
         </Button>
 
         {/* Notifications */}
@@ -87,7 +100,7 @@ const Header = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="text-white hover:bg-white/10">
               <Settings className="ml-2 h-4 w-4" />
-              الإعدادات
+              {t('common.settings')}
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-white/20" />
             <DropdownMenuItem 

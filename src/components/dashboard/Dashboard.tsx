@@ -4,8 +4,10 @@ import StatsCards from './StatsCards';
 import NetworkChart from './NetworkChart';
 import AlertsPanel from './AlertsPanel';
 import { SystemStats, ChartData, Alert } from '@/types/dashboard';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Dashboard = () => {
+  const { t } = useLanguage();
   const [stats, setStats] = useState<SystemStats>({
     cpu: 35,
     memory: 52,
@@ -133,14 +135,14 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">لوحة التحكم الرئيسية</h1>
-          <p className="text-gray-400">مراقبة شاملة لأداء الشبكة والنظام في الوقت الفعلي</p>
+          <h1 className="text-3xl font-bold text-white mb-2">{t('dashboard.title')}</h1>
+          <p className="text-gray-400">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex items-center space-x-reverse space-x-4">
           <div className="glass-dark rounded-lg px-4 py-2 border border-white/20">
             <div className="flex items-center space-x-reverse space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-white text-sm">النظام يعمل بشكل طبيعي</span>
+              <span className="text-white text-sm">{t('dashboard.systemStatus')}</span>
             </div>
           </div>
           <div className="glass-dark rounded-lg px-3 py-2 border border-white/20">
