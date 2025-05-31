@@ -14,6 +14,12 @@ import FiberTools from '@/components/tools/fiber/FiberTools';
 import AIAssistant from '@/components/tools/ai/AIAssistant';
 import SimulationTools from '@/components/tools/simulation/SimulationTools';
 import Terminal from '@/components/tools/terminal/Terminal';
+import ISPTools from '@/components/tools/isp/ISPTools';
+import VPNTools from '@/components/tools/vpn/VPNTools';
+import SandboxTools from '@/components/tools/sandbox/SandboxTools';
+import AdvancedAnalyzer from '@/components/tools/analyzer/AdvancedAnalyzer';
+import AdminPanel from '@/components/admin/AdminPanel';
+import Documentation from '@/components/documentation/Documentation';
 import { Button } from '@/components/ui/button';
 
 const MainApp = () => {

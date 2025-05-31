@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   LayoutDashboard, 
@@ -31,14 +30,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, isCollapsed }
     { id: 'tools', label: t('menu.tools'), icon: Network },
     { id: 'security', label: t('menu.security'), icon: Shield },
     { id: 'monitoring', label: t('menu.monitoring'), icon: Monitor },
-    { id: 'analysis', label: t('menu.analysis'), icon: Activity },
+    { id: 'analysis', label: 'التحليل المتقدم', icon: Activity },
     { id: 'fiber', label: t('menu.fiber'), icon: Zap },
-    { id: 'scanner', label: t('menu.scanner'), icon: Network },
+    { id: 'isp-tools', label: 'فحص مزودي الخدمة', icon: Network },
+    { id: 'vpn-tools', label: 'أدوات VPN', icon: Shield },
+    { id: 'sandbox', label: 'البيئة الافتراضية', icon: Terminal },
     { id: 'assistant', label: t('menu.assistant'), icon: Bot },
     { id: 'simulation', label: t('menu.simulation'), icon: FileText },
     { id: 'terminal', label: t('menu.terminal'), icon: Terminal },
-    { id: 'users', label: t('menu.users'), icon: Users },
-    { id: 'settings', label: t('menu.settings'), icon: Settings },
+    { id: 'admin', label: 'لوحة المطور', icon: Settings },
     { id: 'help', label: t('menu.help'), icon: HelpCircle },
   ];
 
