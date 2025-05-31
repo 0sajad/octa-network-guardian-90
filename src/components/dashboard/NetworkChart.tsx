@@ -20,7 +20,7 @@ const NetworkChart: React.FC<NetworkChartProps> = ({ data, title, color }) => {
   };
 
   const calculateAverage = () => {
-    if (data.length === 0) return 0;
+    if (data.length === 0) return '0';
     const sum = data.reduce((acc, item) => acc + item.value, 0);
     return (sum / data.length).toFixed(1);
   };
@@ -28,6 +28,9 @@ const NetworkChart: React.FC<NetworkChartProps> = ({ data, title, color }) => {
   const getCurrentValue = () => {
     return data.length > 0 ? data[data.length - 1].value.toFixed(1) : '0';
   };
+
+  // Create a safe gradient ID
+  const gradientId = `gradient-${color.replace('#', '').replace(/[^a-zA-Z0-9]/g, '')}`;
 
   return (
     <div className="glass-dark rounded-xl p-6 border border-white/20 hover-lift">
@@ -50,7 +53,7 @@ const NetworkChart: React.FC<NetworkChartProps> = ({ data, title, color }) => {
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
             <defs>
-              <linearGradient id={`gradient-${color.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
                 <stop offset="95%" stopColor={color} stopOpacity={0}/>
               </linearGradient>
@@ -78,14 +81,14 @@ const NetworkChart: React.FC<NetworkChartProps> = ({ data, title, color }) => {
               }}
               labelStyle={{ color: '#fff', fontWeight: 'bold' }}
               formatter={(value: number) => [formatTooltipValue(value), 'القيمة']}
-              labelFormatter={(label) => `الوقت: ${label}`}
+              labelFormatter={(label) => `الوقت: ${String(label)}`}
             />
             <Area
               type="monotone"
               dataKey="value"
               stroke={color}
               strokeWidth={2}
-              fill={`url(#gradient-${color.replace('#', '')})`}
+              fill={`url(#${gradientId})`}
               dot={false}
               activeDot={{ r: 6, stroke: color, strokeWidth: 2, fill: '#fff' }}
             />
