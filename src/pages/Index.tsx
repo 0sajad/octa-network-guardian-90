@@ -38,12 +38,7 @@ const MainApp = () => {
       case 'tools':
         return <NetworkTools />;
       case 'security':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">أدوات الأمان</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <SecurityTools />;
       case 'monitoring':
         return (
           <div className="text-center py-12">
@@ -52,19 +47,15 @@ const MainApp = () => {
           </div>
         );
       case 'analysis':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">أدوات التحليل</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <AdvancedAnalyzer />;
       case 'fiber':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">أدوات الألياف البصرية</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <FiberTools />;
+      case 'isp-tools':
+        return <ISPTools />;
+      case 'vpn-tools':
+        return <VPNTools />;
+      case 'sandbox':
+        return <SandboxTools />;
       case 'scanner':
         return (
           <div className="text-center py-12">
@@ -73,26 +64,13 @@ const MainApp = () => {
           </div>
         );
       case 'assistant':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">المساعد الذكي</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <AIAssistant />;
       case 'simulation':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">نظام المحاكاة</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <SimulationTools />;
       case 'terminal':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">سطر الأوامر</h2>
-            <p className="text-gray-400">قريباً...</p>
-          </div>
-        );
+        return <Terminal />;
+      case 'admin':
+        return <AdminPanel />;
       case 'users':
         return (
           <div className="text-center py-12">
@@ -108,12 +86,7 @@ const MainApp = () => {
           </div>
         );
       case 'help':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">المساعدة والدعم</h2>
-            <p className="text-gray-400">للدعم التقني: support@octa-network.com</p>
-          </div>
-        );
+        return <Documentation />;
       default:
         return <Dashboard />;
     }
