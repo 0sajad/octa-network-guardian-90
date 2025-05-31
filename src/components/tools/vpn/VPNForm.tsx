@@ -6,15 +6,17 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
+interface VPNTestData {
+  provider: string;
+  server: string;
+  protocol: string;
+  testing: boolean;
+  error: string | null;
+}
+
 interface VPNFormProps {
-  vpnTest: {
-    provider: string;
-    server: string;
-    protocol: string;
-    testing: boolean;
-    error: string | null;
-  };
-  onTestChange: (data: Partial<typeof vpnTest>) => void;
+  vpnTest: VPNTestData;
+  onTestChange: (data: Partial<VPNTestData>) => void;
   onTest: () => void;
 }
 

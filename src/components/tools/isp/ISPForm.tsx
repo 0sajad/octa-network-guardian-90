@@ -6,14 +6,16 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
+interface ISPFormData {
+  name: string;
+  location: string;
+  testing: boolean;
+  error: string | null;
+}
+
 interface ISPFormProps {
-  ispData: {
-    name: string;
-    location: string;
-    testing: boolean;
-    error: string | null;
-  };
-  onDataChange: (data: Partial<typeof ispData>) => void;
+  ispData: ISPFormData;
+  onDataChange: (data: Partial<ISPFormData>) => void;
   onTest: () => void;
 }
 
