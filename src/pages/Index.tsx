@@ -9,6 +9,11 @@ import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
 import Dashboard from '@/components/dashboard/Dashboard';
 import NetworkTools from '@/components/tools/NetworkTools';
+import SecurityTools from '@/components/tools/security/SecurityTools';
+import FiberTools from '@/components/tools/fiber/FiberTools';
+import AIAssistant from '@/components/tools/ai/AIAssistant';
+import SimulationTools from '@/components/tools/simulation/SimulationTools';
+import Terminal from '@/components/tools/terminal/Terminal';
 import { Button } from '@/components/ui/button';
 
 const MainApp = () => {
