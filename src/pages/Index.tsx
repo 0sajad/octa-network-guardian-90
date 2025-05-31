@@ -32,6 +32,8 @@ const MainApp = () => {
   }
 
   const renderContent = () => {
+    console.log('Rendering content for tab:', activeTab);
+    
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
@@ -43,7 +45,7 @@ const MainApp = () => {
         return (
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-white mb-4">مراقبة النظام</h2>
-            <p className="text-gray-400">قريباً...</p>
+            <p className="text-gray-400">هذه الميزة قيد التطوير...</p>
           </div>
         );
       case 'analysis':
@@ -59,8 +61,8 @@ const MainApp = () => {
       case 'scanner':
         return (
           <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-white mb-4">فاحص الشبكة</h2>
-            <p className="text-gray-400">قريباً...</p>
+            <h2 className="text-2xl font-bold text-white mb-4">فاحص الشبكة المتقدم</h2>
+            <p className="text-gray-400">قريباً - أداة فحص شاملة للشبكات</p>
           </div>
         );
       case 'assistant':
@@ -75,19 +77,20 @@ const MainApp = () => {
         return (
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-white mb-4">إدارة المستخدمين</h2>
-            <p className="text-gray-400">متاح للمطورين فقط</p>
+            <p className="text-gray-400">لوحة تحكم المستخدمين - متاح للمطورين فقط</p>
           </div>
         );
       case 'settings':
         return (
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-white mb-4">الإعدادات</h2>
-            <p className="text-gray-400">قريباً...</p>
+            <p className="text-gray-400">إعدادات النظام والتخصيص - قريباً</p>
           </div>
         );
       case 'help':
         return <Documentation />;
       default:
+        console.log('Unknown tab, defaulting to dashboard');
         return <Dashboard />;
     }
   };
@@ -99,7 +102,10 @@ const MainApp = () => {
       <div className="flex h-[calc(100vh-4rem)] w-full">
         <Sidebar 
           activeTab={activeTab}
-          onTabChange={setActiveTab}
+          onTabChange={(tab) => {
+            console.log('Tab changed to:', tab);
+            setActiveTab(tab);
+          }}
           isCollapsed={sidebarCollapsed}
         />
         
@@ -110,7 +116,7 @@ const MainApp = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="text-white"
+              className="text-white hover:bg-white/10"
             >
               <Menu className="w-5 h-5" />
             </Button>

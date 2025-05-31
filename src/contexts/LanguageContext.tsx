@@ -27,6 +27,30 @@ const translations = {
     'tools.bandwidth': 'مراقبة النطاق الترددي',
     'tools.traceroute': 'تتبع المسار',
     
+    // ISP Tools
+    'isp.title': 'أدوات فحص مزودي الخدمة',
+    'isp.subtitle': 'اختبار وتحليل شركات الاتصالات والإنترنت',
+    'isp.providerName': 'اسم مزود الخدمة',
+    'isp.location': 'الموقع',
+    'isp.analyze': 'تحليل بالذكاء الاصطناعي',
+    'isp.analyzing': 'جاري التحليل...',
+    
+    // VPN Tools
+    'vpn.title': 'أدوات فحص VPN',
+    'vpn.subtitle': 'اختبار وتحليل شبكات VPN الخاصة الافتراضية',
+    'vpn.provider': 'مزود VPN',
+    'vpn.server': 'موقع الخادم',
+    'vpn.protocol': 'البروتوكول',
+    
+    // Help & Documentation
+    'help.title': 'المساعدة والتوثيق',
+    'help.subtitle': 'مركز المساعدة والتوثيق الشامل',
+    'help.search': 'البحث في التوثيق...',
+    'help.gettingStarted': 'البدء السريع',
+    'help.networkTools': 'أدوات الشبكة',
+    'help.monitoring': 'المراقبة والتحليل',
+    'help.advanced': 'الميزات المتقدمة',
+    
     // Common
     'common.run': 'تشغيل',
     'common.running': 'جاري التشغيل...',
@@ -39,6 +63,9 @@ const translations = {
     'common.close': 'إغلاق',
     'common.save': 'حفظ',
     'common.cancel': 'إلغاء',
+    'common.error': 'خطأ',
+    'common.success': 'نجح',
+    'common.loading': 'جاري التحميل...',
     
     // Menu Items
     'menu.dashboard': 'لوحة التحكم',
@@ -47,13 +74,24 @@ const translations = {
     'menu.monitoring': 'المراقبة',
     'menu.analysis': 'التحليل',
     'menu.fiber': 'الألياف البصرية',
+    'menu.ispTools': 'أدوات مزودي الخدمة',
+    'menu.vpnTools': 'أدوات VPN',
+    'menu.sandbox': 'البيئة التجريبية',
     'menu.scanner': 'فاحص الشبكة',
     'menu.assistant': 'المساعد الذكي',
     'menu.simulation': 'المحاكاة',
     'menu.terminal': 'سطر الأوامر',
+    'menu.admin': 'الإدارة',
     'menu.users': 'إدارة المستخدمين',
     'menu.settings': 'الإعدادات',
     'menu.help': 'المساعدة',
+    
+    // Errors
+    'error.network': 'خطأ في الشبكة',
+    'error.api': 'خطأ في الخدمة',
+    'error.notFound': 'غير موجود',
+    'error.unauthorized': 'غير مصرح',
+    'error.general': 'حدث خطأ غير متوقع',
   },
   en: {
     // Dashboard
@@ -71,6 +109,30 @@ const translations = {
     'tools.bandwidth': 'Bandwidth Monitor',
     'tools.traceroute': 'Traceroute',
     
+    // ISP Tools
+    'isp.title': 'ISP Testing Tools',
+    'isp.subtitle': 'Test and analyze internet service providers',
+    'isp.providerName': 'Provider Name',
+    'isp.location': 'Location',
+    'isp.analyze': 'AI Analysis',
+    'isp.analyzing': 'Analyzing...',
+    
+    // VPN Tools
+    'vpn.title': 'VPN Testing Tools',
+    'vpn.subtitle': 'Test and analyze virtual private networks',
+    'vpn.provider': 'VPN Provider',
+    'vpn.server': 'Server Location',
+    'vpn.protocol': 'Protocol',
+    
+    // Help & Documentation
+    'help.title': 'Help & Documentation',
+    'help.subtitle': 'Comprehensive help and documentation center',
+    'help.search': 'Search documentation...',
+    'help.gettingStarted': 'Getting Started',
+    'help.networkTools': 'Network Tools',
+    'help.monitoring': 'Monitoring & Analysis',
+    'help.advanced': 'Advanced Features',
+    
     // Common
     'common.run': 'Run',
     'common.running': 'Running...',
@@ -83,6 +145,9 @@ const translations = {
     'common.close': 'Close',
     'common.save': 'Save',
     'common.cancel': 'Cancel',
+    'common.error': 'Error',
+    'common.success': 'Success',
+    'common.loading': 'Loading...',
     
     // Menu Items
     'menu.dashboard': 'Dashboard',
@@ -91,13 +156,24 @@ const translations = {
     'menu.monitoring': 'Monitoring',
     'menu.analysis': 'Analysis',
     'menu.fiber': 'Fiber Optics',
+    'menu.ispTools': 'ISP Tools',
+    'menu.vpnTools': 'VPN Tools',
+    'menu.sandbox': 'Sandbox',
     'menu.scanner': 'Network Scanner',
     'menu.assistant': 'AI Assistant',
     'menu.simulation': 'Simulation',
     'menu.terminal': 'Terminal',
+    'menu.admin': 'Administration',
     'menu.users': 'User Management',
     'menu.settings': 'Settings',
     'menu.help': 'Help',
+    
+    // Errors
+    'error.network': 'Network Error',
+    'error.api': 'API Error',
+    'error.notFound': 'Not Found',
+    'error.unauthorized': 'Unauthorized',
+    'error.general': 'An unexpected error occurred',
   }
 };
 
@@ -111,7 +187,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
       setLanguage(savedLanguage);
     }
-  }, []);
+    
+    // Set initial direction
+    document.documentElement.setAttribute('lang', language);
+    document.documentElement.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+  }, [language]);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
@@ -121,7 +201,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    const translation = translations[language][key as keyof typeof translations[typeof language]];
+    return translation || key;
   };
 
   const dir = language === 'ar' ? 'rtl' : 'ltr';
