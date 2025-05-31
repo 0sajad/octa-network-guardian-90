@@ -3,6 +3,12 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+// Define proper types for Performance Observer entries
+interface LayoutShiftEntry extends PerformanceEntry {
+  hadRecentInput: boolean;
+  value: number;
+}
+
 // Performance monitoring utilities
 const performanceMonitor = {
   // Register Service Worker for optimal caching
@@ -57,12 +63,13 @@ const performanceMonitor = {
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
       }
 
-      // Measure Cumulative Layout Shift
+      // Measure Cumulative Layout Shift with proper typing
       const clsObserver = new PerformanceObserver((list) => {
         let clsValue = 0;
         for (const entry of list.getEntries()) {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
+          const layoutShiftEntry = entry as LayoutShiftEntry;
+          if (!layoutShiftEntry.hadRecentInput) {
+            clsValue += layoutShiftEntry.value;
           }
         }
         console.log('CLS:', clsValue);
